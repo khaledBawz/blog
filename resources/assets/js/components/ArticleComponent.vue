@@ -5,7 +5,17 @@
                 <div class="media">
                     <div class="media-body">
                         <h4 class="card-title">{{ article.title }}</h4>
-                        <read-more class="card-text" more-str="اقرا المزيد" :text="article.body" link="#"></read-more>
+                        <read-more class="card-text" more-str="اقرا المزيد" less-str="إغلاق" :text="article.body" :max-chars="100" link="#"></read-more>
+                        <div class="card-text" v-if="user">
+                            <a :href="'/article/' + article.slug + '/edit'">تعديل</a>
+                         </div>
+                        <div class="card-text" v-if="user">
+                            <form :action="'/article/' + article.slug" method="delete" id="destroy">
+                            <a href="javascript:;" class="nav-link" onclick="document.getElementById('destroy').submit();">حذف</a>
+                            <input type="hidden" name="_token" :value="csrf">
+                            <input type="hidden" name="_method" value="DELETE">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -28,16 +38,20 @@
         data: function () {
             return {
                 articles: [],
-                url: '/article',
-                pagination: {}
+                artilceUrl: '/article',
+                userUrl: '/auth',
+                pagination: {},
+                user: false,
+                csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
         },
         created() {
             this.getArtciles();
+            this.getAuthUser();
         },
         methods: {
             getArtciles(page_url) {
-                page_url = page_url || this.url;
+                page_url = page_url || this.artilceUrl;
                 axios.get(page_url)
                 .then(response => {
                     this.makePagination(response.data);
@@ -52,6 +66,13 @@
                     prev_page_url: data.prev_page_url
                 }
                 this.pagination = pagination;
+            },
+            getAuthUser()
+            {
+                axios.get(this.userUrl)
+                .then(response => {
+                    this.user = response.data;
+                });
             }
         }
     }

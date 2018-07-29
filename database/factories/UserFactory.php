@@ -17,5 +17,6 @@ $factory->define(App\Article::class, function (Faker $faker) {
     return [
         'title' => $faker->title,
         'body' => $faker->text,
+        'slug' => str_slug($faker->title, '-')
     ];
 });

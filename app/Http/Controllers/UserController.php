@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class UserController extends Controller
 {
     /**
-     * Show the application home page.
+     * return the if there is auth.
      *
      * @return \Illuminate\Http\Response
      */
@@ -15,6 +15,6 @@ class HomeController extends Controller
     {
         $user = auth()->user();
         
-        return view('app.home.index', compact($user));
+        return $user;
     }
 }

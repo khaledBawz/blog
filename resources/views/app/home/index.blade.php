@@ -18,7 +18,7 @@
             <h3>المقالات</h3>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-12 mt-10">
+            <div class="col-12 col-lg-12 mt-10 text-right">
                 <single-article></single-article>
             </div>
         </div>
@@ -26,59 +26,27 @@
 </div>
 <!-- // end .section -->
 
-<div class="section" id="projects">
-
-<div class="container">
-    <div class="section-title">
-        <h3>مشاريعي</h3>
-    </div>
-
-    <div class="row">
-        <div class="col-12 col-lg-4">
-            <div class="card features light-bg">
-                <div class="card-body">
-                    <div class="media">
-                        <span class="ti-face-smile gradient-fill ti-3x mr-3"></span>
-                        <div class="media-body">
-                            <h4 class="card-title">Simple</h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rutrum, urna eu pellentesque </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="section" id="cv">
+    <div class="container">
+        <div class="section-title">
+            <h3>السيرة الذاتية</h3>
         </div>
-        <div class="col-12 col-lg-4">
-            <div class="card features light-bg">
-                <div class="card-body">
-                    <div class="media">
-                        <span class="ti-settings gradient-fill ti-3x mr-3"></span>
-                        <div class="media-body">
-                            <h4 class="card-title">Customize</h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rutrum, urna eu pellentesque </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-4">
-            <div class="card features light-bg">
-                <div class="card-body">
-                    <div class="media">
-                        <span class="ti-lock gradient-fill ti-3x mr-3"></span>
-                        <div class="media-body">
-                            <h4 class="card-title">Secure</h4>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer rutrum, urna eu pellentesque </p>
-                        </div>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-12 col-lg-12 mt-10 text-center">
+                <p>عزيزي القارئ بإمكانك مشاهدة السيرة الذاتية الخاصة بي عبر الرابط التالي</p>
+                <br>
+                <a href="{{ url('/attachments/cv.pdf') }}" class="btn btn-primary">مشاهدة السيرة الذاتية</a>
             </div>
         </div>
     </div>
 </div>
-</div>
+
 
 <div class="light-bg py-5" id="contact">
     <div class="container">
+        <div class="section-title">
+            <h3>تواصل معي</h3>
+        </div>
         <div class="row">
             <div class="col-lg-6 text-center text-lg-right">
                 <div class=" d-block d-sm-inline-block">

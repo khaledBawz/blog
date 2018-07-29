@@ -4,7 +4,7 @@
         <small>
         Powered by Laravel & VueJS. Template by <a href="https://colorlib.com" target="_blank">COLORLIB</a>
         <br>
-        This blog source code is hosted in <a href="https://colorlib.com" target="_blank">Github</a>
+        This blog source code is hosted in <a href="https://github.com/khaledBawz/blog" target="_blank">Github</a>
         </small>
     </p>
 </footer>

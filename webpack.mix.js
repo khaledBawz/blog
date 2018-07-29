@@ -10,10 +10,11 @@ let mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js(['resources/assets/js/app.js', 'resources/assets/js/script.js'], 'public/js')
    .extract(['vue', 'bootstrap', 'jquery', 'axios'])
    .sass('resources/assets/css/vendor.scss', 'public/css/vendor.css')
    .styles(['resources/assets/css/style.css','resources/assets/css/custom.css'],
     'public/css/style.css')
     .copyDirectory('resources/assets/images', 'public/images')
-    .copyDirectory('./node_modules/font-awesome/fonts', 'public/fonts');
+    .copyDirectory('./node_modules/font-awesome/fonts', 'public/fonts')
+    .copyDirectory('resources/assets/attachments', 'public/attachments');

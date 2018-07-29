@@ -126,6 +126,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
+__webpack_require__(48);
 module.exports = __webpack_require__(49);
 
 
@@ -17722,24 +17723,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             articles: [],
-            url: '/article',
-            pagination: {}
+            artilceUrl: '/article',
+            userUrl: '/auth',
+            pagination: {},
+            user: false,
+            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         };
     },
     created: function created() {
         this.getArtciles();
+        this.getAuthUser();
     },
 
     methods: {
         getArtciles: function getArtciles(page_url) {
             var _this = this;
 
-            page_url = page_url || this.url;
+            page_url = page_url || this.artilceUrl;
             axios.get(page_url).then(function (response) {
                 _this.makePagination(response.data);
                 _this.articles = response.data.data;
@@ -17753,6 +17768,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 prev_page_url: data.prev_page_url
             };
             this.pagination = pagination;
+        },
+        getAuthUser: function getAuthUser() {
+            var _this2 = this;
+
+            axios.get(this.userUrl).then(function (response) {
+                _this2.user = response.data;
+            });
         }
     }
 });
@@ -17784,10 +17806,68 @@ var render = function() {
                     staticClass: "card-text",
                     attrs: {
                       "more-str": "اقرا المزيد",
+                      "less-str": "إغلاق",
                       text: article.body,
+                      "max-chars": 100,
                       link: "#"
                     }
-                  })
+                  }),
+                  _vm._v(" "),
+                  _vm.user
+                    ? _c("div", { staticClass: "card-text" }, [
+                        _c(
+                          "a",
+                          {
+                            attrs: {
+                              href: "/article/" + article.slug + "/edit"
+                            }
+                          },
+                          [_vm._v("تعديل")]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.user
+                    ? _c("div", { staticClass: "card-text" }, [
+                        _c(
+                          "form",
+                          {
+                            attrs: {
+                              action: "/article/" + article.slug,
+                              method: "delete",
+                              id: "destroy"
+                            }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "nav-link",
+                                attrs: {
+                                  href: "javascript:;",
+                                  onclick:
+                                    "document.getElementById('destroy').submit();"
+                                }
+                              },
+                              [_vm._v("حذف")]
+                            ),
+                            _vm._v(" "),
+                            _c("input", {
+                              attrs: { type: "hidden", name: "_token" },
+                              domProps: { value: _vm.csrf }
+                            }),
+                            _vm._v(" "),
+                            _c("input", {
+                              attrs: {
+                                type: "hidden",
+                                name: "_method",
+                                value: "DELETE"
+                              }
+                            })
+                          ]
+                        )
+                      ])
+                    : _vm._e()
                 ],
                 1
               )
@@ -17849,7 +17929,124 @@ if (false) {
 }
 
 /***/ }),
-/* 48 */,
+/* 48 */
+/***/ (function(module, exports) {
+
+/*
+
+Style   : MobApp Script JS
+Version : 1.0
+Author  : Surjith S M
+URI     : https://surjithctly.in/
+
+Copyright © All rights Reserved 
+
+*/
+
+$(function () {
+    "use strict";
+
+    /*-----------------------------------
+     * FIXED  MENU - HEADER
+     *-----------------------------------*/
+
+    function menuscroll() {
+        var $navmenu = $('.nav-menu');
+        if ($(window).scrollTop() > 50) {
+            $navmenu.addClass('is-scrolling');
+        } else {
+            $navmenu.removeClass("is-scrolling");
+        }
+    }
+    menuscroll();
+    $(window).on('scroll', function () {
+        menuscroll();
+    });
+    /*-----------------------------------
+     * NAVBAR CLOSE ON CLICK
+     *-----------------------------------*/
+
+    $('.navbar-nav > li:not(.dropdown) > a').on('click', function () {
+        $('.navbar-collapse').collapse('hide');
+    });
+    /* 
+     * NAVBAR TOGGLE BG
+     *-----------------*/
+    var siteNav = $('#navbar');
+    siteNav.on('show.bs.collapse', function (e) {
+        $(this).parents('.nav-menu').addClass('menu-is-open');
+    });
+    siteNav.on('hide.bs.collapse', function (e) {
+        $(this).parents('.nav-menu').removeClass('menu-is-open');
+    });
+
+    /*-----------------------------------
+     * ONE PAGE SCROLLING
+     *-----------------------------------*/
+    // Select all links with hashes
+    $('a[href*="#"]').not('[href="#"]').not('[href="#0"]').not('[data-toggle="tab"]').on('click', function (event) {
+        // On-page links
+        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+            // Figure out element to scroll to
+            var target = $(this.hash);
+            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+            // Does a scroll target exist?
+            if (target.length) {
+                // Only prevent default if animation is actually gonna happen
+                event.preventDefault();
+                $('html, body').animate({
+                    scrollTop: target.offset().top
+                }, 1000, function () {
+                    // Callback after animation
+                    // Must change focus!
+                    var $target = $(target);
+                    $target.focus();
+                    if ($target.is(":focus")) {
+                        // Checking if the target was focused
+                        return false;
+                    } else {
+                        $target.attr('tabindex', '-1'); // Adding tabindex for elements not focusable
+                        $target.focus(); // Set focus again
+                    };
+                });
+            }
+        }
+    });
+    /*-----------------------------------
+     * OWL CAROUSEL
+     *-----------------------------------*/
+    var $testimonialsDiv = $('.testimonials');
+    if ($testimonialsDiv.length && $.fn.owlCarousel) {
+        $testimonialsDiv.owlCarousel({
+            items: 1,
+            nav: true,
+            dots: false,
+            navText: ['<span class="ti-arrow-left"></span>', '<span class="ti-arrow-right"></span>']
+        });
+    }
+
+    var $galleryDiv = $('.img-gallery');
+    if ($galleryDiv.length && $.fn.owlCarousel) {
+        $galleryDiv.owlCarousel({
+            nav: false,
+            center: true,
+            loop: true,
+            autoplay: true,
+            dots: true,
+            navText: ['<span class="ti-arrow-left"></span>', '<span class="ti-arrow-right"></span>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                768: {
+                    items: 3
+                }
+            }
+        });
+    }
+}); /* End Fn */
+
+/***/ }),
 /* 49 */
 /***/ (function(module, exports) {
 
