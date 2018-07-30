@@ -8,7 +8,7 @@
         </p>
     </div>
     <div class="img-holder mt-3">
-        <img src="images/khaled_bawazir.jpg" alt="Khaled Bawazir" class="rounded-circle" width="250" height="250">
+        <img src="images/khaled_bawazir.jpg" alt="Khaled Bawazir" class="rounded-circle img-fluid" width="300" height="300">
     </div>
 </header>
 
